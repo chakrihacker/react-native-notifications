@@ -18,12 +18,28 @@ export default class App extends React.Component {
     return true;
   };
 
+  sendNotificationImmediately = async () => {
+    let notificationId = await Notifications.presentLocalNotificationAsync({
+      title: "This is crazy",
+      body: "Your mind will blow after reading this"
+    });
+    console.log(notificationId); // can be saved in AsyncStorage or send to server
+  };
+
   render() {
     return (
       <View style={styles.container}>
         <Button
           title="Please accept Notifications Permissions"
           onPress={() => this.askPermissions()}
+        />
+        <Button
+          title="Send Notification immediately"
+          onPress={() => this.sendNotificationImmediately()}
+        />
+        <Button
+          title="Dismiss All Notifications"
+          onPress={() => Notifications.dismissAllNotificationsAsync()}
         />
       </View>
     );
